@@ -165,11 +165,13 @@ public class Wechat extends CordovaPlugin {
             return sendAuthRequest(args, callbackContext);
         } else if (action.equals("sendPaymentRequest")) {
             return sendPaymentRequest(args, callbackContext);
+        } else if(action.equals("entrustAppSignContract")){
+            return entrustAppSignContract(args, callbackContext);
         } else if (action.equals("isWXAppInstalled")) {
             return isInstalled(callbackContext);
-        }else if (action.equals("chooseInvoiceFromWX")){
+        } else if (action.equals("chooseInvoiceFromWX")){
             return chooseInvoiceFromWX(args, callbackContext);
-        }else if(action.equals("openMiniProgram")){
+        } else if(action.equals("openMiniProgram")){
             return openMiniProgram(args,callbackContext);
         }
 
@@ -321,6 +323,46 @@ public class Wechat extends CordovaPlugin {
             req.timeStamp = params.getString("timestamp");
             req.sign = params.getString("sign");
             req.packageValue = "Sign=WXPay";
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            return true;
+        }
+
+        final IWXAPI api = getWxAPI(cordova.getActivity());
+
+        if (api.sendReq(req)) {
+            Log.i(TAG, "Payment request has been sent successfully.");
+
+            // send no result
+            sendNoResultPluginResult(callbackContext);
+        } else {
+            Log.i(TAG, "Payment request has been sent unsuccessfully.");
+
+            // send error
+            callbackContext.error(ERROR_SEND_REQUEST_FAILED);
+        }
+
+        return true;
+    }
+
+    protected boolean entrustAppSignContract(CordovaArgs args, CallbackContext callbackContext){
+        // check if # of arguments is correct
+        final JSONObject params;
+        try {
+            params = args.getJSONObject(0);
+        } catch (JSONException e) {
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            return true;
+        }    
+        WXOpenBusinessWebview.Req req = new WXOpenBusinessWebview.Req();
+        try {
+            String preEntrustwebId = params.has("pre_entrustweb_id") ? params.getString("pre_entrustweb_id") : params.getString("pre_entrustweb_id");
+            req.businessType = 12; // 固定值
+            HashMap<String, String> queryInfo = new HashMap<>();
+            queryInfo.put("pre_entrustweb_id", preEntrustwebId);
+            req.queryInfo = queryInfo;
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
 

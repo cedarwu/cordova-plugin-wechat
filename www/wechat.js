@@ -105,6 +105,27 @@ module.exports = {
     },
 
     /**
+     * 委托代扣App签约
+     *
+     * @link https://pay.weixin.qq.com/wiki/doc/api/wxpay_v2/papay/chapter3_2.shtml
+     * @link
+     * @example
+     * <code>
+     * var params = {
+     *     pre_entrustweb_id: '111_fdsfdsfafdsfaf', // 预签约Id, 通过预签约接口获取
+     * };
+     * Wechat.entrustAppSign(params, function () {
+     *     alert("Success");
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+     * </code>
+     */
+     entrustAppSignContract: function (params, onSuccess, onError) {
+        exec(onSuccess, onError, "Wechat", "entrustAppSignContract", [params]);
+    },
+    
+    /**
      * jumpToBizProfile （跳转到某个微信公众号）2016-11-11 测试是失效的，囧
      *
      * @link https://segmentfault.com/a/1190000007204624

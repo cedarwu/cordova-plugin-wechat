@@ -2,6 +2,11 @@
 ![Downloads](https://img.shields.io/npm/dt/cordova-plugin-wechat.svg)
 ![version](https://img.shields.io/npm/v/cordova-plugin-wechat/latest.svg)
 
+# Diff
+
+Upgrade iOS sdk to 1.9.6, for iOS 16 compatibility.
+
+refer: https://developers.weixin.qq.com/doc/oplatform/Downloads/iOS_Resource.html
 
 # 重要说明
 
@@ -189,19 +194,6 @@ Wechat.openMiniProgram(params,function(data){
 ```
 
 more usage  please see [https://jasonz1987.github.io/cordova-wechat-docs/docs/usages](https://jasonz1987.github.io/cordova-wechat-docs/docs/usages)
-
-# Join us
-
-QQ群：190808518 
-[![cordova-wechat官方交流群](https://pub.idqqimg.com/wpa/images/group.png)](http://shang.qq.com/wpa/qunwpa?idkey=8279476de172cacb72a51a5630744316c0069620ad8b33be3abee243af2cc001)
-
-# Donate
-
-we need your support to improve open source software ,if we induce your develop time ,welcome to donate us.
-
-[![paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/jasonz1987/6.66)
-
-![donate.png](donate.png)
 
 # LICENSE
 

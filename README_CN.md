@@ -2,6 +2,12 @@
 ![Downloads](https://img.shields.io/npm/dt/cordova-plugin-wechat.svg)
 ![version](https://img.shields.io/npm/v/cordova-plugin-wechat/latest.svg)
 
+# 修改 by cedar
+
+由于iOS 16对App使用剪切板进行了强提醒，影响用户体验，需要升级微信支付iOS sdk到1.9.6版本，减少读写剪切板。
+
+参考：https://developers.weixin.qq.com/doc/oplatform/Downloads/iOS_Resource.html
+
 # 重要说明
 
 由于苹果iOS 13系统版本安全升级，微信官方SDK在1.8.6版本进行了适配并且支持*Universal Links*方式跳转，以及分享时的合法性校验。
@@ -183,18 +189,10 @@ Wechat.openMiniProgram(params,function(data){
 
 See [FAQ](https://github.com/xu-li/cordova-plugin-wechat/wiki/FAQ).
 
-QQ群：190808518  [![cordova-wechat官方交流群](https://pub.idqqimg.com/wpa/images/group.png)](http://shang.qq.com/wpa/qunwpa?idkey=8279476de172cacb72a51a5630744316c0069620ad8b33be3abee243af2cc001)
-
 
 # TODO
 
 1. 增加参数检查
-
-# 捐赠
-
-开源软件的发展离不开大家的推动和支持，如果我们的插件帮助到了你，欢迎捐赠（注：微信插件）。
-
-![donate.png](donate.png)
 
 
 # LICENSE

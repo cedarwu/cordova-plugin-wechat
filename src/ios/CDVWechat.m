@@ -182,6 +182,32 @@ static int const MAX_THUMBNAIL_SIZE = 320;
     }];
 }
 
+- (void)entrustAppSignContract:(CDVInvokedUrlCommand *)command
+{
+  // check arguments
+  NSDictionary *params = [command.arguments objectAtIndex:0];
+  if (!params) {
+    [self failWithCallbackID:command.callbackId withMessage:@"参数格式错误"];
+    return;
+  }
+
+  NSString *pre_entrustweb_id = [params objectForKey:@"pre_entrustweb_id"];
+
+  WXOpenBusinessWebViewReq *req = [[WXOpenBusinessWebViewReq alloc] init];
+  req.businessType = 12; //固定值
+  NSMutableDictionary *queryInfoDic = [NSMutableDictionary dictionary];
+  [queryInfoDic setObject:pre_entrustweb_id
+                   forKey: @"pre_entrustweb_id"];
+  req.queryInfoDic = queryInfoDic;
+  [WXApi sendReq:(BaseReq *)req completion:^(BOOL success) {
+       if (success) {
+           self.currentCallbackId = command.callbackId;
+       } else {
+           [self failWithCallbackID:command.callbackId withMessage:@"发送请求失败"];
+       }
+    }];
+}
+
 - (void)chooseInvoiceFromWX:(CDVInvokedUrlCommand *)command
 {
     NSDictionary *params = [command.arguments objectAtIndex:0];
