@@ -26,6 +26,7 @@ import com.tencent.mm.opensdk.modelmsg.WXMiniProgramObject;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelbiz.WXOpenBusinessWebview;
 
 import com.tencent.mm.opensdk.modelbiz.ChooseCardFromWXCardPackage;
 
@@ -45,6 +46,7 @@ import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 import org.apache.cordova.CordovaPreferences;
+import java.util.HashMap;
 
 public class Wechat extends CordovaPlugin {
 
