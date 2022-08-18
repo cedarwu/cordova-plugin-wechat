@@ -22,7 +22,7 @@ static int const MAX_THUMBNAIL_SIZE = 320;
         self.wechatAppId = appId;
         [WXApi registerApp: appId universalLink: universalLink];
         
-        NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@.", [WXApi getApiVersion], appId);
+        NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@. universalLink: %@", [WXApi getApiVersion], appId, universalLink);
     }
 }
 
