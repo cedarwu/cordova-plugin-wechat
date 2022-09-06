@@ -39,6 +39,7 @@
                 <string>weixin</string>
                 <string>wechat</string>
                 <string>weixinULAPI</string>
+                <string>weixinURLParamsAPI</string>
             </array>
         </config-file>
 
