@@ -150,7 +150,7 @@ public class Wechat extends CordovaPlugin {
             String appId = getSavedAppId(ctx);
 
             if (!appId.isEmpty()) {
-                wxAPI = WXAPIFactory.createWXAPI(ctx, appId, true);
+                wxAPI = WXAPIFactory.createWXAPI(ctx, appId, false);
             }
         }
 
