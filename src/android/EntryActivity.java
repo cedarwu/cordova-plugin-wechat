@@ -102,7 +102,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                 ctx.error(Wechat.ERROR_WECHAT_RESPONSE_COMMON);
                 break;
             default:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNKNOWN);
+                ctx.error(resp.toString());
                 break;
         }
 
