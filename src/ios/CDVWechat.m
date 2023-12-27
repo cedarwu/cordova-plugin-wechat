@@ -336,7 +336,7 @@ static int const MAX_THUMBNAIL_SIZE = 320;
             break;
 
         default:
-            message = @"未知错误";
+            message = [NSString stringWithFormat:@"errCode: %d", resp.errCode];
     }
 
     if (success)
