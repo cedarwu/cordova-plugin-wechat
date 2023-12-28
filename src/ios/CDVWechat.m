@@ -316,27 +316,32 @@ static int const MAX_THUMBNAIL_SIZE = 320;
             break;
 
         case WXErrCodeCommon:
-            message = @"普通错误";
+            // message = @"普通错误";
+            message = [NSString stringWithFormat:@"普通错误, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         case WXErrCodeUserCancel:
-            message = @"用户点击取消并返回";
+            // message = @"用户点击取消并返回";
+            message = [NSString stringWithFormat:@"用户点击取消并返回, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         case WXErrCodeSentFail:
-            message = @"发送失败";
+            // message = @"发送失败";
+            message = [NSString stringWithFormat:@"发送失败, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         case WXErrCodeAuthDeny:
-            message = @"授权失败";
+            // message = @"授权失败";
+            message = [NSString stringWithFormat:@"授权失败, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         case WXErrCodeUnsupport:
-            message = @"微信不支持";
+            // message = @"微信不支持";
+            message = [NSString stringWithFormat:@"微信不支持, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         default:
-            message = [NSString stringWithFormat:@"errCode: %d", resp.errCode];
+            message = [NSString stringWithFormat:@"errCode: %d, errStr: %@", resp.errCode, resp.errStr];
     }
 
     if (success)

@@ -87,22 +87,27 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                 }
                 break;
             case BaseResp.ErrCode.ERR_USER_CANCEL:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_USER_CANCEL);
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_USER_CANCEL);
+                ctx.error(String.format("用户点击取消并返回, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
             case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_AUTH_DENIED);
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_AUTH_DENIED);
+                ctx.error(String.format("授权失败, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
             case BaseResp.ErrCode.ERR_SENT_FAILED:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
+                ctx.error(String.format("发送失败, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
             case BaseResp.ErrCode.ERR_UNSUPPORT:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNSUPPORT);
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNSUPPORT);
+                ctx.error(String.format("微信不支持, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
             case BaseResp.ErrCode.ERR_COMM:
-                ctx.error(Wechat.ERROR_WECHAT_RESPONSE_COMMON);
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_COMMON);
+                ctx.error(String.format("普通错误, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
             default:
-                ctx.error(String.format("errCode: %d", resp.errCode));
+                ctx.error(String.format("errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
         }
 
