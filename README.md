@@ -4,7 +4,7 @@
 
 # Diff
 
-Upgrade iOS sdk to 1.9.6, for iOS 16 compatibility.
+Upgrade iOS sdk to 2.0.4, for iOS 16 compatibility.
 
 refer: https://developers.weixin.qq.com/doc/oplatform/Downloads/iOS_Resource.html
 
