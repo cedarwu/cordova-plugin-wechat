@@ -170,7 +170,11 @@ static int const MAX_THUMBNAIL_SIZE = 320;
     req.prepayId = [params objectForKey:requiredParams[1]];
     req.timeStamp = [[params objectForKey:requiredParams[2]] intValue];
     req.nonceStr = [params objectForKey:requiredParams[3]];
-    req.package = @"Sign=WXPay";
+    if ([params objectForKey:@"package"]) {
+        req.package = [params objectForKey:@"package"];
+    } else{
+        req.package = @"Sign=WXPay";
+    }
     req.sign = [params objectForKey:requiredParams[4]];
     
     [WXApi sendReq:(BaseReq *)req completion:^(BOOL success) {
