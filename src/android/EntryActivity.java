@@ -1,5 +1,7 @@
 package __PACKAGE_NAME__.wxapi;
 
+import java.util.Set;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -89,7 +91,9 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                         break;
                     case ConstantsAPI.COMMAND_PAY_BY_WX:
                     default:
-                        Bundle bundle = resp.toBundle();
+                        Bundle bundle = new Bundle();
+                        resp.toBundle(bundle);
+
                         JSONObject json = new JSONObject();
                         Set<String> keys = bundle.keySet();
                         for (String key : keys) {
