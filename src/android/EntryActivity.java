@@ -103,6 +103,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                                 Log.d(Wechat.TAG, "put json error: " + e.getMessage());
                             }
                         }
+                        Log.d(Wechat.TAG, "resp: " + json.toString());
                         ctx.success(json);
                         break;
                 }
