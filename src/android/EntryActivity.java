@@ -75,9 +75,11 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
             case BaseResp.ErrCode.ERR_OK:
                 switch (resp.getType()) {
                     case ConstantsAPI.COMMAND_SENDAUTH:
+                        Log.d(Wechat.TAG, "COMMAND_SENDAUTH;");
                         auth(resp);
                         break;
                     case ConstantsAPI.COMMAND_CHOOSE_CARD_FROM_EX_CARD_PACKAGE:
+                        Log.d(Wechat.TAG, "COMMAND_CHOOSE_CARD_FROM_EX_CARD_PACKAGE;");
                         plunckInvoiceData(resp);
                         break;
                     case ConstantsAPI.COMMAND_LAUNCH_WX_MINIPROGRAM:
@@ -87,7 +89,7 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                         break;
                     case ConstantsAPI.COMMAND_PAY_BY_WX:
                     default:
-                        ctx.success();
+                        ctx.success(resp);
                         break;
                 }
                 break;
