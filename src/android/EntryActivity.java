@@ -89,7 +89,17 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                         break;
                     case ConstantsAPI.COMMAND_PAY_BY_WX:
                     default:
-                        ctx.success(resp);
+                        Bundle bundle = resp.toBundle();
+                        JSONObject json = new JSONObject();
+                        Set<String> keys = bundle.keySet();
+                        for (String key : keys) {
+                            try {
+                                json.put(key, JSONObject.wrap(bundle.get(key)));
+                            } catch(JSONException e) {
+                                Log.d(Wechat.TAG, "put json error: " + e.getMessage());
+                            }
+                        }
+                        ctx.success(json);
                         break;
                 }
                 break;
