@@ -168,7 +168,7 @@ public class Wechat extends CordovaPlugin {
             String appId = getSavedAppId(ctx);
 
             if (!appId.isEmpty()) {
-                wxAPI = WXAPIFactory.createWXAPI(ctx, appId, true);
+                wxAPI = WXAPIFactory.createWXAPI(ctx, appId, false);
             }
         }
 
@@ -828,7 +828,7 @@ public class Wechat extends CordovaPlugin {
         currentCallbackContext = callbackContext;
         String appId = getAppId(preferences);
         ; // 填应用AppId
-        IWXAPI api = WXAPIFactory.createWXAPI(cordova.getActivity(), appId);
+        IWXAPI api = WXAPIFactory.createWXAPI(cordova.getActivity(), appId, false);
 
         final JSONObject params;
         try {
