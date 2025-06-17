@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram;
+import com.tencent.mm.opensdk.modelbiz.WXOpenBusinessView;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -88,6 +89,11 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                         Log.d(Wechat.TAG, "miniprogram back;");
                         WXLaunchMiniProgram.Resp miniProResp = (WXLaunchMiniProgram.Resp) resp;
                         launchMiniProResp(miniProResp);
+                        break;
+                    case ConstantsAPI.COMMAND_OPEN_BUSINESS_VIEW:
+                        Log.d(Wechat.TAG, "business view back;");
+                        WXOpenBusinessView.Resp businessResp = (WXOpenBusinessView.Resp) resp;
+                        launchBusinessViewResp(businessResp);
                         break;
                     case ConstantsAPI.COMMAND_PAY_BY_WX:
                     default:
@@ -166,6 +172,18 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
         JSONObject response = new JSONObject();
         try {
             response.put("extMsg", extraData);
+        } catch (Exception e) {
+            Log.e(Wechat.TAG, e.getMessage());
+        }
+        ctx.success(response);
+    }
+
+    protected void launchBusinessViewResp(WXOpenBusinessView.Resp businessResp) {
+        CallbackContext ctx = Wechat.getCurrentCallbackContext();
+        JSONObject response = new JSONObject();
+        try {
+            response.put("businessType", businessResp.businessType != null ? businessResp.businessType : "");
+            response.put("extMsg", businessResp.extMsg != null ? businessResp.extMsg : "");
         } catch (Exception e) {
             Log.e(Wechat.TAG, e.getMessage());
         }

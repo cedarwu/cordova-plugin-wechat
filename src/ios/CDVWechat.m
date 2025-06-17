@@ -307,7 +307,7 @@ static int const MAX_THUMBNAIL_SIZE = 320;
     NSLog(@"%@", req);
 }
 
-- (void)onResp:(WXLaunchMiniProgramResp *)resp
+- (void)onResp:(BaseResp *)resp
 {
     BOOL success = NO;
     NSString *message = @"Unknown";
@@ -392,6 +392,16 @@ static int const MAX_THUMBNAIL_SIZE = 320;
             NSString *extMsg = resp.extMsg;
             response = @{
                          @"extMsg": extMsg
+                         };
+            CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:response];
+            [self.commandDelegate sendPluginResult:commandResult callbackId:self.currentCallbackId];
+        }
+        else if ([resp isKindOfClass:[WXOpenBusinessViewResp class]])
+        {
+            WXOpenBusinessViewResp *businessResp = (WXOpenBusinessViewResp *)resp;
+            response = @{
+                         @"businessType": businessResp.businessType ?: @"",
+                         @"extMsg": businessResp.extMsg ?: @""
                          };
             CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:response];
             [self.commandDelegate sendPluginResult:commandResult callbackId:self.currentCallbackId];
@@ -595,6 +605,51 @@ static int const MAX_THUMBNAIL_SIZE = 320;
              self.currentCallbackId = command.callbackId;
         } else {
             [self failWithCallbackID:command.callbackId withMessage:@"打开请求失败"];
+        }
+    }];
+}
+
+- (void)openBusinessView:(CDVInvokedUrlCommand *)command
+{
+    // check arguments
+    NSDictionary *params = [command.arguments objectAtIndex:0];
+    if (!params) {
+        [self failWithCallbackID:command.callbackId withMessage:@"参数格式错误"];
+        return;
+    }
+    
+    NSLog(@"openBusinessView params: %@", params);
+    
+    NSString *businessType = [params objectForKey:@"businessType"];
+    if (!businessType) {
+        [self failWithCallbackID:command.callbackId withMessage:@"缺少必要参数：businessType"];
+        return;
+    }
+    
+    // create business view request
+    WXOpenBusinessViewReq *req = [[WXOpenBusinessViewReq alloc] init];
+    req.businessType = businessType;
+    
+    NSString *extInfo = [params objectForKey:@"extInfo"];
+    if (extInfo) {
+        req.extInfo = extInfo;
+    }
+    
+    NSString *query = [params objectForKey:@"query"];
+    if (query) {
+        req.query = query;
+    }
+    
+    NSLog(@"openBusinessView request - businessType: %@, extInfo: %@, query: %@", req.businessType, req.extInfo, req.query);
+    
+    // send request
+    [WXApi sendReq:req completion:^(BOOL success) {
+        if (success) {
+            NSLog(@"openBusinessView request sent successfully");
+            self.currentCallbackId = command.callbackId;
+        } else {
+            NSLog(@"openBusinessView request failed");
+            [self failWithCallbackID:command.callbackId withMessage:@"打开业务视图失败"];
         }
     }];
 }
