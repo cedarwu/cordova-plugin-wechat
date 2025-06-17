@@ -208,6 +208,28 @@ module.exports = {
      */
     openMiniProgram: function (params, onSuccess, onError) {
         exec(onSuccess, onError, "Wechat", "openMiniProgram", [params]);
+    },
+
+    /**
+     * openBusinessView 打开微信业务视图
+     *
+     * @link https://javadoc.io/doc/com.tencent.mm.opensdk/wechat-sdk-android/latest/index.html
+     * @example
+     * <code>
+     * var params = {
+     *     businessType: 'mp_business_type', // 业务类型：
+     *     extInfo: 'extInfo', // 额外信息
+     *     query: 'a=b&c=d', // 拉起query参数
+     * };
+     * Wechat.openBusinessView(params, function (data) {
+     *     alert("Success: " + JSON.stringify(data));
+     * }, function (reason) {
+     *     alert("Failed: " + reason);
+     * });
+     * </code>
+     */
+    openBusinessView: function (params, onSuccess, onError) {
+        exec(onSuccess, onError, "Wechat", "openBusinessView", [params]);
     }
 
 };

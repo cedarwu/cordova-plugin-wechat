@@ -182,7 +182,7 @@ Wechat.chooseInvoiceFromWX(params,function(data){
 //offical doc https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=21526646437Y6nEC&token=&lang=zh_CN
 var params = {
     userName: 'gh_d43f693ca31f', // userName
-    path: 'pages/index/index?name1=key1&name2=key2', // open mini program page
+   path: 'pages/index/index?name1=key1&name2=key2', // open mini program page
     miniprogramType: Wechat.Mini.RELEASE // Developer version, trial version, and official version are available for selection
 };
 
@@ -191,6 +191,22 @@ Wechat.openMiniProgram(params,function(data){
 },function(){
     alert('error');
 })
+```
+
+## open business view
+```Javascript
+//offical doc https://javadoc.io/doc/com.tencent.mm.opensdk/wechat-sdk-android/latest/index.html
+var params = {
+    businessType: 'mp_business_type', // 业务类型
+    extInfo: 'extInfo', // 额外信息
+    query: 'a=b&c=d', // 拉起query参数
+};
+
+Wechat.openBusinessView(params, function (data) {
+    console.log(data); // data:{businessType:"", extMsg:""}
+}, function (reason) {
+    alert('Failed: ' + reason);
+});
 ```
 
 more usage  please see [https://jasonz1987.github.io/cordova-wechat-docs/docs/usages](https://jasonz1987.github.io/cordova-wechat-docs/docs/usages)

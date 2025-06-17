@@ -93,6 +93,8 @@ public class Wechat extends CordovaPlugin {
     public static final String KEY_ARG_MESSAGE_MEDIA_PATH = "path";
     public static final String KEY_ARG_MESSAGE_MEDIA_WITHSHARETICKET = "withShareTicket";
     public static final String KEY_ARG_MESSAGE_MEDIA_HDIMAGEDATA = "hdImageData";
+    public static final String KEY_ARG_MESSAGE_MEDIA_BUSINESSTYPE = "businessType";
+    public static final String KEY_ARG_MESSAGE_MEDIA_QUERY = "query";
 
     public static final int TYPE_WECHAT_SHARING_APP = 1;
     public static final int TYPE_WECHAT_SHARING_EMOTION = 2;
@@ -221,6 +223,8 @@ public class Wechat extends CordovaPlugin {
             return chooseInvoiceFromWX(args, callbackContext);
         } else if (action.equals("openMiniProgram")) {
             return openMiniProgram(args, callbackContext);
+        } else if (action.equals("openBusinessView")) {
+            return openBusinessView(args, callbackContext);
         }
 
         return false;
@@ -847,6 +851,56 @@ public class Wechat extends CordovaPlugin {
         } catch (Exception e) {
             callbackContext.error(ERROR_INVALID_PARAMETERS);
             Log.e(TAG, e.getMessage());
+        }
+        return true;
+    }
+
+    protected boolean openBusinessView(CordovaArgs args, CallbackContext callbackContext) {
+        currentCallbackContext = callbackContext;
+        String appId = getAppId(preferences);
+        IWXAPI api = WXAPIFactory.createWXAPI(cordova.getActivity(), appId);
+
+        final JSONObject params;
+        try {
+            params = args.getJSONObject(0);
+        } catch (JSONException e) {
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
+            return true;
+        }
+
+        // 检查businessType必须传入
+        if (!params.has(KEY_ARG_MESSAGE_MEDIA_BUSINESSTYPE)) {
+            callbackContext.error("缺少必要参数：businessType");
+            return true;
+        }
+
+        Log.d(TAG, "openBusinessView params: " + params.toString());
+
+        WXOpenBusinessView.Req req = new WXOpenBusinessView.Req();
+        try {
+            req.businessType = params.getString(KEY_ARG_MESSAGE_MEDIA_BUSINESSTYPE); // 申请到bussinessType
+            
+            if (params.has(KEY_ARG_MESSAGE_MEDIA_EXTINFO)) {
+                req.extInfo = params.getString(KEY_ARG_MESSAGE_MEDIA_EXTINFO); // 拉起的可选参数
+            }
+            
+            if (params.has(KEY_ARG_MESSAGE_MEDIA_QUERY)) {
+                req.query = params.getString(KEY_ARG_MESSAGE_MEDIA_QUERY); // 拉起query参数
+            }
+            
+            Log.d(TAG, "openBusinessView request - businessType: " + req.businessType + 
+                      ", extInfo: " + req.extInfo + ", query: " + req.query);
+            
+            if (api.sendReq(req)) {
+                Log.d(TAG, "openBusinessView request sent successfully");
+                sendNoResultPluginResult(callbackContext);
+            } else {
+                Log.e(TAG, "openBusinessView request failed");
+                callbackContext.error(ERROR_SEND_REQUEST_FAILED);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "openBusinessView error: " + e.getMessage(), e);
+            callbackContext.error(ERROR_INVALID_PARAMETERS);
         }
         return true;
     }
