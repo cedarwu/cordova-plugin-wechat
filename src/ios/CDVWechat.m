@@ -389,7 +389,7 @@ static int const MAX_THUMBNAIL_SIZE = 320;
                 }
         else if ([resp isKindOfClass:[WXLaunchMiniProgramResp class]])
         {
-            NSString *extMsg = resp.extMsg;
+            NSString *extMsg = ((WXLaunchMiniProgramResp *)resp).extMsg;
             response = @{
                          @"extMsg": extMsg
                          };
