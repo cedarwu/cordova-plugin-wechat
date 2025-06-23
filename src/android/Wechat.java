@@ -894,7 +894,7 @@ public class Wechat extends CordovaPlugin {
             
             if (api.sendReq(req)) {
                 Log.d(TAG, "openBusinessView request sent successfully");
-                sendNoResultPluginResult(callbackContext);
+                currentCallbackContext = callbackContext;  // 保存 callbackContext，等待 onResp
             } else {
                 Log.e(TAG, "openBusinessView request failed");
                 callbackContext.error(ERROR_SEND_REQUEST_FAILED);
