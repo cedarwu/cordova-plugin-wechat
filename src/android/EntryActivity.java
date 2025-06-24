@@ -66,6 +66,11 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
     @Override
     public void onResp(BaseResp resp) {
         Log.d(Wechat.TAG, resp.toString());
+        
+        // 添加带行号的日志
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        String callerInfo = stackTrace[1].getFileName() + ":" + stackTrace[1].getLineNumber();
+        Log.d(Wechat.TAG, "onResp - errCode: " + resp.errCode + ", errStr: " + resp.errStr + ", type: " + resp.getType() + " [" + callerInfo + "]");
 
         CallbackContext ctx = Wechat.getCurrentCallbackContext();
 
