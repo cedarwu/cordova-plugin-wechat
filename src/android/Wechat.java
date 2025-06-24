@@ -858,8 +858,8 @@ public class Wechat extends CordovaPlugin {
 
     protected boolean openBusinessView(CordovaArgs args, CallbackContext callbackContext) {
         currentCallbackContext = callbackContext;
-        String appId = getAppId(preferences);
-        IWXAPI api = WXAPIFactory.createWXAPI(cordova.getActivity(), appId);
+        // 使用已注册的全局wxAPI实例，而不是创建新实例
+        IWXAPI api = getWxAPI(cordova.getActivity());
 
         final JSONObject params;
         try {
