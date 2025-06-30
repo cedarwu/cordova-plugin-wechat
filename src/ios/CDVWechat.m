@@ -330,9 +330,8 @@ static int const MAX_THUMBNAIL_SIZE = 320;
             break;
 
         case WXErrCodeSentFail:
-            // message = @"发送失败";
-            // message = [NSString stringWithFormat:@"发送失败, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
-            success = YES;
+            message = @"发送失败";
+            message = [NSString stringWithFormat:@"发送失败, errCode: %d, errStr: %@", resp.errCode, resp.errStr];
             break;
 
         case WXErrCodeAuthDeny:
