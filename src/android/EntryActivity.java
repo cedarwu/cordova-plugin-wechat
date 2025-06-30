@@ -75,7 +75,6 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
         }
 
         switch (resp.errCode) {
-            case BaseResp.ErrCode.ERR_SENT_FAILED:
             case BaseResp.ErrCode.ERR_OK:
                 switch (resp.getType()) {
                     case ConstantsAPI.COMMAND_SENDAUTH:
@@ -123,10 +122,10 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
                 // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_AUTH_DENIED);
                 ctx.error(String.format("授权失败, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
                 break;
-            // case BaseResp.ErrCode.ERR_SENT_FAILED:
-            //     // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
-            //     ctx.error(String.format("发送失败, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
-            //     break;
+            case BaseResp.ErrCode.ERR_SENT_FAILED:
+                // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_SENT_FAILED);
+                ctx.error(String.format("发送失败, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
+                break;
             case BaseResp.ErrCode.ERR_UNSUPPORT:
                 // ctx.error(Wechat.ERROR_WECHAT_RESPONSE_UNSUPPORT);
                 ctx.error(String.format("微信不支持, errCode: %d, errStr: %s", resp.errCode, resp.errStr));
